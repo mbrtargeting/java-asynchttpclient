@@ -20,7 +20,6 @@ import io.opentracing.Span;
 import io.opentracing.Tracer;
 import java.net.InetSocketAddress;
 import java.util.List;
-import javax.net.ssl.SSLSession;
 import org.asynchttpclient.AsyncHandler;
 import org.asynchttpclient.HttpResponseBodyPart;
 import org.asynchttpclient.HttpResponseStatus;
@@ -68,7 +67,7 @@ public class TracingAsyncHandler<T> implements AsyncHandler<T> {
 
   @Override
   public void onThrowable(final Throwable t) {
-    try (final Scope ignored = tracer.scopeManager().activate(span)) {
+    try (final Scope ignored = tracer.scopeManager().activate(span, false)) {
       handler.onThrowable(t);
     } finally {
       for (SpanDecorator decorator : decorators) {
@@ -80,7 +79,7 @@ public class TracingAsyncHandler<T> implements AsyncHandler<T> {
 
   @Override
   public T onCompleted() throws Exception {
-    try (final Scope ignored = tracer.scopeManager().activate(span)) {
+    try (final Scope ignored = tracer.scopeManager().activate(span, false)) {
       return handler.onCompleted();
     } finally {
       span.finish();
@@ -120,11 +119,6 @@ public class TracingAsyncHandler<T> implements AsyncHandler<T> {
   @Override
   public void onTlsHandshakeAttempt() {
     handler.onTlsHandshakeAttempt();
-  }
-
-  @Override
-  public void onTlsHandshakeSuccess(final SSLSession sslSession) {
-    handler.onTlsHandshakeSuccess(sslSession);
   }
 
   @Override

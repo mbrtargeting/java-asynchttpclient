@@ -107,7 +107,7 @@ public class TracingAsyncHttpClientTest {
         .build();
 
     final MockSpan parent = tracer.buildSpan("parent").start();
-    try (final Scope ignored = tracer.activateSpan(parent)) {
+    try (final Scope ignored = tracer.scopeManager().activate(parent, false)) {
       final Response response = client.executeRequest(request).get(10, TimeUnit.SECONDS);
       assertEquals("active-span", response.getResponseBody());
     }

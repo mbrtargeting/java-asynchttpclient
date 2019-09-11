@@ -65,11 +65,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 
-    <opentracing.version>0.33.0</opentracing.version>
+    <opentracing.version>0.31.0</opentracing.version>
     <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
 
-    <asynchttpclient.version>2.10.1</asynchttpclient.version>
+    <asynchttpclient.version>2.4.7</asynchttpclient.version>
   </properties>
 
   <dependencies>
